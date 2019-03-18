@@ -32,8 +32,7 @@ export class InfluencerController extends BaseController {
             const newInfluencer = Influencer.build({name: resp.name, socialId: resp.id, socialType: SocialType.Facebook, email: resp.email});
             await newInfluencer.save();
             if (resp.email) {
-                console.log(resp.email);
-                // Mailer.shared.sendInfluencerSignupEmail('caominhthetg@gmail.com', resp.name);
+                Mailer.shared.sendInfluencerSignupEmail(resp.email, resp.name);
             }
             res.send({influencer: InfluencerTransformer.transform(newInfluencer), token: ''});
         } else {
