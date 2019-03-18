@@ -30,7 +30,7 @@ export class InfluencerController extends BaseController {
         if (!influencer) {
             const resp = await FB.api('me', { fields: 'email, name', access_token: accessToken })
             const newInfluencer = Influencer.build({name: resp.name, socialId: resp.id, socialType: SocialType.Facebook, email: resp.email});
-            // await newInfluencer.save();
+            await newInfluencer.save();
             if (resp.email) {
                 console.log(resp.email);
                 // Mailer.shared.sendInfluencerSignupEmail('caominhthetg@gmail.com', resp.name);
@@ -55,13 +55,8 @@ export class InfluencerController extends BaseController {
         }
         const page = parseInt(req.query.page || 1, 10);
         const size = parseInt(req.query.size || 10, 10);
-        const ageTo = parseInt(req.query.ageTo || 1000, 10);
-        const ageFrom = parseInt(req.query.ageFrom || 1, 10);
         const search = req.query.search;
         const topics = await Topic.findAll({where: {name: {[Sequelize.Op.iLike]: '%' + search + '%'}}});
-
-        const to = moment().add(-ageTo, 'years');
-        const from = moment().add(-ageFrom, 'years');
 
         const where: any = {};
         if (search) {
@@ -84,10 +79,18 @@ export class InfluencerController extends BaseController {
             };
         }
 
-        where.dob = {
-            [Sequelize.Op.gte]: to,
-            [Sequelize.Op.lt]: from,
+        let { ageTo, ageFrom } = req.query;
+        if (req.query.ageTo || req.query.ageTo) {
+            ageTo = parseInt(req.query.ageTo || 1000, 10);
+            ageFrom = parseInt(req.query.ageFrom || 1, 10);
+            const to = moment().add(-ageTo, 'years');
+            const from = moment().add(-ageFrom, 'years');
+            where.dob = {
+                [Sequelize.Op.gte]: to,
+                [Sequelize.Op.lt]: from,
+            }
         }
+
 
         const query = await Influencer.findAndCountAll({
             where,

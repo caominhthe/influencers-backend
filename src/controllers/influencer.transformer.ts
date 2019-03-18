@@ -1,7 +1,6 @@
 import {Influencer} from '../models/Influencer.model';
 
 interface InfluencerVM {
-    id: string;
     name: string;
     socialId: string;
     phone: string;
@@ -21,7 +20,6 @@ export class InfluencerTransformer {
         const occupations = influencer.occupations ? influencer.occupations.map( (occupation: any) => {return {id: occupation.id, name: occupation.name}}) : null;
         const topics = influencer.topics ? influencer.topics.map( (topic: any) => {return {id: topic.id, name: topic.name}}) : null;
         return {
-            id: influencer.id,
             socialId: influencer.socialId,
             name: influencer.name,
             phone: influencer.phone,
