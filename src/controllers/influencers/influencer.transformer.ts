@@ -1,4 +1,4 @@
-import {Influencer} from '../models/Influencer.model';
+import {Influencer} from '../../models/Influencer.model';
 
 interface InfluencerVM {
     name: string;

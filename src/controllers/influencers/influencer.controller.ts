@@ -1,16 +1,16 @@
 import {Request, Response} from 'express';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { Influencer, SocialType } from '../models/Influencer.model';
+import { Influencer, SocialType } from '../../models/Influencer.model';
 import * as passport from 'passport'
-import {Config} from '../config';
+import {Config} from '../../config';
 import {Sequelize} from 'sequelize-typescript';
-import {Occupation} from '../models/Occupation.model';
-import {Topic} from '../models/Topic.model';
+import {Occupation} from '../../models/Occupation.model';
+import {Topic} from '../../models/Topic.model';
 import {InfluencerTransformer} from './influencer.transformer';
-import {Mailer} from '../shared/mailer';
-import {InfluencerTopic} from '../models/InfluencerTopic.model';
-import {BaseController} from '../shared/base-controller';
+import {Mailer} from '../../shared/mailer';
+import {InfluencerTopic} from '../../models/InfluencerTopic.model';
+import {BaseController} from '../../shared/base-controller';
 import moment = require('moment');
 var FB = require('fb');
 FB.options({appId: Config.FACEBOOK_APP_ID, appSecret: Config.FACEBOOK_APP_SECRET});
@@ -80,7 +80,7 @@ export class InfluencerController extends BaseController {
         }
 
         let { ageTo, ageFrom } = req.query;
-        if (req.query.ageTo || req.query.ageTo) {
+        if (ageTo || ageFrom) {
             ageTo = parseInt(req.query.ageTo || 1000, 10);
             ageFrom = parseInt(req.query.ageFrom || 1, 10);
             const to = moment().add(-ageTo, 'years');

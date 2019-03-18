@@ -1,6 +1,6 @@
 import express from 'express';
 import {InfluencerController} from './influencer.controller';
-import {wrapAsync} from '../shared/wrap';
+import {wrapAsync} from '../../shared/wrap';
 
 export class InfluencerRoutes {
 

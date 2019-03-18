@@ -11,7 +11,7 @@ import {Topic} from './models/Topic.model';
 import {development as dbConfig} from '../database/config.json';
 import {InfluencerTopic} from './models/InfluencerTopic.model';
 import {InfluencerOccupation} from './models/InfluencerOccupation.model';
-import {InfluencerRoutes} from './controllers/influencer.route';
+import {InfluencerRoutes} from './controllers/influencers/influencer.routes';
 import {PassportMiddleware} from './middleware/passport.middleware';
 import {Mailer} from './shared/mailer';
 import cors from 'cors';
