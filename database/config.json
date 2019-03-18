@@ -1,0 +1,11 @@
+{
+  "development": {
+    "username": "HiipAdmin",
+    "password": "",
+    "database": "hiip",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": false
+
+  }
+}
